@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+  <application>
+
+    <receiver
+        android:name="br.com.mobilemind.nativescript.alarmnotification.BootstrapAlarmReceiver"      
+        android:exported="true">
+      <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED" />
+          <action android:name="NATIVESCRIPT_BOOTSTRAP_ALARM_RECEIVER" />
+          <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+
+    <receiver
+        android:name="br.com.mobilemind.nativescrip.alarmnotification.AlarmReceiver"
+        android:exported="true">
+      <intent-filter>
+          <action android:name="NATIVESCRIPT_ALARM_RECEIVER" />
+          <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
+
+  </application>        
+
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>    
+
+</manifest>

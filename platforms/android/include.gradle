@@ -1,0 +1,11 @@
+android { 
+    productFlavors {
+        "nativescript-alarm-notification" {
+            dimension "nativescript-alarm-notification"
+        }
+    }
+}
+
+dependencies {
+  
+}
