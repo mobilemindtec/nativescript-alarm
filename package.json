@@ -1,7 +1,7 @@
 
 {
-  "name": "nativescript-background-task",
-  "main" : "background-task.js",
+  "name": "nativescript-alarm-notification",
+  "main" : "alarm-notification.js",
   "version": "0.0.1",
   "nativescript": {
     "platforms": {

@@ -1,7 +1,7 @@
 android { 
     productFlavors {
-        "nativescript-background-task" {
-            dimension "nativescript-background-task"
+        "nativescript-alarm-notification" {
+            dimension "nativescript-alarm-notification"
         }
     }
 }
