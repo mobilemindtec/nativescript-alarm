@@ -15,7 +15,7 @@
     </receiver>
 
     <receiver
-        android:name="br.com.mobilemind.nativescrip.alarmnotification.AlarmReceiver"
+        android:name="br.com.mobilemind.nativescript.alarmnotification.AlarmReceiver"
         android:exported="true">
       <intent-filter>
           <action android:name="NATIVESCRIPT_ALARM_RECEIVER" />
@@ -26,6 +26,7 @@
 
   </application>        
 
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>    
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>  
+  <uses-permission android:name="android.permission.WAKE_LOCK" /> 
 
 </manifest>
