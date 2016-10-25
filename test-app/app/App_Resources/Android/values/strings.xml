@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Alarme Manager Demo</string>
+    <string name="title_activity_kimera">Alarme Manager Demo</string>
+    
+    <!-- alarm manager plugin -->
+    <string  name="bootstrap_alarm_manager_query">select id, lembreteAt, title, 1000 * 60 * 60 from books where lembrete = 1 and delivered = 0</string>
+    <string  name="bootstrap_alarm_manager_database_name">books.db</string>
+    <string  name="bootstrap_alarm_manager_database_version">1</string>
+    <string  name="bootstrap_alarm_manager_database_datetime_format">YYYY-MM-DD HH:mm:ss.SSS</string>
+    <string  name="bootstrap_alarm_manager_notification_title">Devolução de livro</string>
+    <string  name="bootstrap_alarm_manager_notification_text_normal">Não esqueça de devolver o livro %2$s</string>
+    <string  name="bootstrap_alarm_manager_notification_text_atraso">O livro %2$s está com a devolução atrasada!</string>    
+    <string  name="bootstrap_alarm_manager_notification_small_icon">icon</string> 
+    <!--
+    <string  name="bootstrap_alarm_manager_notification_large_icon">icon</string>       
+    -->
+    <string  name="bootstrap_alarm_manager_notification_sound"></string>  
+
+</resources>
