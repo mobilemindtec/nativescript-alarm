@@ -16,6 +16,7 @@
     <!--
     <string  name="bootstrap_alarm_manager_notification_large_icon">icon</string>       
     -->
+    <string  name="bootstrap_alarm_manager_default_action">MY_TEST_ALARM_APP_ALARM_RECEIVER</string> 
     <string  name="bootstrap_alarm_manager_notification_sound"></string>  
 
 </resources>
