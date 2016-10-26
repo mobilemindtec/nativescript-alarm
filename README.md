@@ -126,7 +126,7 @@ var id = getExtraKey('ID')
 ```
 AlarmManager.show({  
   title: 'Title',
-  text: 'text message'
+  text: 'text message',
   smallIcon: 'icon',
   largeIconRes: 'icon',
   soundUri: '',
