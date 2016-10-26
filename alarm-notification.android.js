@@ -19,10 +19,21 @@ exports.show = function(args){
 
   if(!notificationManager)
     init()
+  
+  var bundle = new android.os.Bundle()
 
-  var iconRes = application.android.context.getResources().getIdentifier(args.icon, "drawable", application.android.context.getPackageName());
-  // show(String action, String title, String text, String extraKey, String extraValue, int iconRes)
-  notificationManager.show(args.action, args.title, args.text, args.extraKey, args.extraValur, iconRes)
+  if(args.bundle){
+    for(var i = 0; i < args.bundle.length; i++){
+      console.log("## bundle copy key=" + args.bundle[i].key + ", value=" + args.bundle[i].value)
+      bundle.putString(args.bundle[i].key, args.bundle[i].value);
+    }    
+  }
+
+  var smallIconRes = args.smallIcon ? application.android.context.getResources().getIdentifier(args.smallIcon, "drawable", application.android.context.getPackageName()) : -1; 
+  var largeIconRes = args.largeIcon ? application.android.context.getResources().getIdentifier(args.largeIcon, "drawable", application.android.context.getPackageName()) : -1;
+  var soundUri = args.sound ? android.net.Uri.parse(args.sound) : null
+  //String title, String text, int smallIconRes, int largeIconRes, Uri custonSound, Bundle bundle
+  notificationManager.show(args.title, args.text, smallIconRes, largeIconRes, soundUri, bundle)
 }
 
 exports.createAlarm = function(args){

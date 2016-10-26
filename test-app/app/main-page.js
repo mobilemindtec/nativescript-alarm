@@ -11,8 +11,17 @@ exports.loaded = function(args){
   page.bindingContext = viewModel;
 }
 
-exports.onTap = function(){
+exports.onSetAlarm = function(){
   createAlarm()
+}
+
+exports.onTapNotification = function(){
+  AlarmManager.show({  
+    title: 'Title',
+    text: 'text message',
+    smallIcon: 'icon',
+    largeIcon: 'icon',
+  })  
 }
 
 function createAlarm(){
