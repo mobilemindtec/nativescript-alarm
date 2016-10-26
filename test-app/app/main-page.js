@@ -36,7 +36,7 @@ function createAlarm(){
       hour: date.getHours(), 
       minute: date.getMinutes() + 1
     },
-    //repeatTime: 1000 * 60 * 60 // 1 hora
+    repeatTime: 1000 * 60 // 1 minuto
   }    
 
   console.log("### form-util - createAlarm " + JSON.stringify(args))
@@ -44,7 +44,7 @@ function createAlarm(){
 
   AlarmManager.createAlarm(args)
 
-  viewModel.set('message', JSON.stringify(args.datetime))
+  viewModel.set('message', "alarm at: " + args.datetime.hora + ":" + args.datetime.minute)
 
 }
 
