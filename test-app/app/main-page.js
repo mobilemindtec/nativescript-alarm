@@ -44,7 +44,7 @@ function createAlarm(){
 
   AlarmManager.createAlarm(args)
 
-  viewModel.set('message', "alarm at: " + args.datetime.hora + ":" + args.datetime.minute)
+  viewModel.set('message', "alarm at: " + args.datetime.hour + ":" + args.datetime.minute)
 
 }
 
