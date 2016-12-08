@@ -128,7 +128,7 @@ AlarmManager.show({
   title: 'Title',
   text: 'text message',
   smallIcon: 'icon',
-  largeIconRes: 'icon',
+  largeIcon: 'icon',
   soundUri: '',
   bundle: []
 })
