@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./gradlew exportJar --debug
+
+cp app/release/NativescriptAlarmNotificationPlugin.jar ../../platforms/android/libs
+cp app/release/NativescriptAlarmNotificationPlugin.jar ../../test-app/node_modules/nativescript-alarm-notification/platforms/android/libs

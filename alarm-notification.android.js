@@ -1,9 +1,6 @@
 var application = require("application");
 var frameModule = require("ui/frame");
 
-
-
-
 var notificationManager
 var alarmManager
 
@@ -19,17 +16,17 @@ exports.show = function(args){
 
   if(!notificationManager)
     init()
-  
+
   var bundle = new android.os.Bundle()
 
   if(args.bundle){
     for(var i = 0; i < args.bundle.length; i++){
       console.log("## bundle copy key=" + args.bundle[i].key + ", value=" + args.bundle[i].value)
       bundle.putString(args.bundle[i].key, args.bundle[i].value);
-    }    
+    }
   }
 
-  var smallIconRes = args.smallIcon ? application.android.context.getResources().getIdentifier(args.smallIcon, "drawable", application.android.context.getPackageName()) : -1; 
+  var smallIconRes = args.smallIcon ? application.android.context.getResources().getIdentifier(args.smallIcon, "drawable", application.android.context.getPackageName()) : -1;
   var largeIconRes = args.largeIcon ? application.android.context.getResources().getIdentifier(args.largeIcon, "drawable", application.android.context.getPackageName()) : -1;
   var soundUri = args.sound ? android.net.Uri.parse(args.sound) : null
   //String title, String text, int smallIconRes, int largeIconRes, Uri custonSound, Bundle bundle
@@ -41,7 +38,7 @@ exports.createAlarm = function(args){
   if(!alarmManager)
     init()
 
-  // createAlarm(String action, Date datetime, int schedulerId, String extraKey, String extraValue) 
+  // createAlarm(String action, Date datetime, int schedulerId, String extraKey, String extraValue)
 
 
   var cal = new java.util.Calendar.getInstance()
@@ -57,7 +54,7 @@ exports.createAlarm = function(args){
 
   alarmManager.createAlarmRepeat(args.action, javaDate, bundle, args.id, args.repeatTime || 0 );
 
-  console.log("## called alarmManager.createAlarmRepeat action=" + args.action + ", id=" + args.id + ", date=" + javaDate + ", args.repeatTime=" + args.repeatTime);  
+  console.log("## called alarmManager.createAlarmRepeat action=" + args.action + ", id=" + args.id + ", date=" + javaDate + ", args.repeatTime=" + args.repeatTime);
 
 }
 
@@ -68,7 +65,7 @@ exports.alarmCancel = function(args){
   if(!alarmManager)
     init()
 
-  alarmManager.cancel(args.action, args.id); 
+  alarmManager.cancel(args.action, args.id);
 }
 
 
