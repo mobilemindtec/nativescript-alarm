@@ -1,0 +1,1 @@
+require("utils/module-merge").merge(require("./alarm-notification"), exports)
