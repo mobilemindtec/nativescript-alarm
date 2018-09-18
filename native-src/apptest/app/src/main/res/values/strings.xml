@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">app-test</string>
+
+    <string name="alarm_manager_default_action">NS_APP_TEST_ALARM_RECEIVER</string>
+    <string name="notification_default_action">NS_APP_TEST_NOTIFICATION_RECEIVER</string>
+
+</resources>

@@ -1,6 +1,6 @@
 
 {
-  "name": "nativescript-alarm-notification",
+  "name": "nativescript-alarm",
   "main" : "index.js",
   "version": "0.0.1",
   "nativescript": {

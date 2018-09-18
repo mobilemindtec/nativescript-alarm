@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/alarmActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="Create notification alarm"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:onClick="onNewNotificationAlarm"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="Create activity alarm"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:onClick="onNewActivityAlarm"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="Create full alarm"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:onClick="onNewFullAlarm"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="Cancell all"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:onClick="onCancellAll"/>
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listAlarms"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/alarmActions">
+
+    </ListView>
+
+
+</android.support.constraint.ConstraintLayout>
