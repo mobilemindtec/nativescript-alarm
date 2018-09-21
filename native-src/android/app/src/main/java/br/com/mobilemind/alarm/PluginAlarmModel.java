@@ -31,7 +31,7 @@ public class PluginAlarmModel {
 
     private String buttonOkText = "OK";
     private String buttonSnoozeText = "Soneca";
-    private String buttonActionText = "Abrir";
+    private String buttonOpenText = "Abrir";
 
     private String alertSmallIcon = "";
     private String alertLargeIcon = "";
@@ -52,7 +52,7 @@ public class PluginAlarmModel {
     // repeat interval, while not cancel
     private long repeatTime;
 
-    private boolean showButtonAction;
+    private boolean showButtonOpen;
     private boolean showButtonOk;
     private boolean showButtonSnooze;
 
@@ -128,12 +128,12 @@ public class PluginAlarmModel {
         this.buttonSnoozeText = buttonSnoozeText;
     }
 
-    public String getButtonActionText() {
-        return buttonActionText;
+    public String getButtonOpenText() {
+        return buttonOpenText;
     }
 
-    public void setButtonActionText(String buttonActionText) {
-        this.buttonActionText = buttonActionText;
+    public void setButtonOpenText(String buttonOpenText) {
+        this.buttonOpenText = buttonOpenText;
     }
 
     public String getAlertSmallIcon() {
@@ -216,12 +216,12 @@ public class PluginAlarmModel {
         this.repeatTime = repeatTime;
     }
 
-    public boolean isShowButtonAction() {
-        return showButtonAction;
+    public boolean isShowButtonOpen() {
+        return showButtonOpen;
     }
 
-    public void setShowButtonAction(boolean showButtonAction) {
-        this.showButtonAction = showButtonAction;
+    public void setShowButtonOpen(boolean showButtonOpen) {
+        this.showButtonOpen = showButtonOpen;
     }
 
     public boolean isShowButtonOk() {
@@ -257,8 +257,8 @@ public class PluginAlarmModel {
         json.put("repeatTime", this.repeatTime);
         json.put("buttonOkText", this.buttonOkText);
         json.put("buttonSnoozeText", this.buttonSnoozeText);
+        json.put("buttonOpenText", this.buttonOpenText);
         json.put("notificationBody", this.notificationBody);
-        json.put("buttonActionText", this.buttonActionText);
         json.put("notificationTitle", this.notificationTitle);
         json.put("alertSmallIcon", this.alertSmallIcon);
         json.put("alertLargeIcon", this.alertLargeIcon);
@@ -267,7 +267,7 @@ public class PluginAlarmModel {
         json.put("startActivityOnReceive", this.startActivityOnReceive);
         json.put("notificationAction", this.notificationAction);
         json.put("insistent", this.insistent);
-        json.put("showButtonAction", this.showButtonAction);
+        json.put("showButtonOpen", this.showButtonOpen);
         json.put("showButtonOk", this.showButtonOk);
         json.put("showButtonSnooze", this.showButtonSnooze);
 
@@ -294,6 +294,7 @@ public class PluginAlarmModel {
         this.repeatTime = json.optLong("repeatTime", 0L);
         this.buttonOkText = json.optString("buttonOkText", "");
         this.buttonSnoozeText = json.optString("buttonSnoozeText", "");
+        this.buttonOpenText = json.optString("buttonOpenText", "");
         this.notificationBody = json.optString("notificationBody", "");
         this.notificationAction = json.optString("notificationAction", "");
         this.notificationTitle = json.optString("notificationTitle", "");
@@ -305,7 +306,7 @@ public class PluginAlarmModel {
         this.notificationAction = json.optString("notificationAction", "");
         this.insistent = json.optBoolean("insistent", false);
 
-        this.showButtonAction = json.optBoolean("showButtonAction", false);
+        this.showButtonOpen = json.optBoolean("showButtonOpen", false);
         this.showButtonOk = json.optBoolean("showButtonOk", false);
         this.showButtonSnooze = json.optBoolean("showButtonSnooze", false);
 

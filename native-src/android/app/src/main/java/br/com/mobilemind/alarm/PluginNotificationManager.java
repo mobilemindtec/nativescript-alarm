@@ -58,6 +58,20 @@ public class PluginNotificationManager {
                       .setColor(getColor(alarm))
                       .setAutoCancel(true);
 
+
+
+        if(alarm.isShowButtonOk()) {
+            Intent okIntent = new Intent(this.context, PluginNotificatonReceiver.class);
+            okIntent.setAction(alarm.getNotificationAction());
+            okIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            okIntent.putExtra("ID", alarm.getId());
+            okIntent.putExtra("NOTIFICATION_ACTION", "ok");
+            PendingIntent okPendingIntent =
+                    PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), okIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOkText(), okPendingIntent);
+            mBuilder.addAction(ab.build());
+        }
+
         if(alarm.isSnoozeEnabled() && alarm.isShowButtonSnooze()){
             Intent snoozeIntent = new Intent(this.context, PluginNotificatonReceiver.class);
             snoozeIntent.setAction(alarm.getNotificationAction());
@@ -70,7 +84,8 @@ public class PluginNotificationManager {
             mBuilder.addAction(ab.build());
         }
 
-        if(alarm.isShowButtonAction()) {
+
+        if(alarm.isShowButtonOpen()) {
             Intent openIntent = new Intent(this.context, PluginNotificatonReceiver.class);
             openIntent.setAction(alarm.getNotificationAction());
             openIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -78,20 +93,7 @@ public class PluginNotificationManager {
             openIntent.putExtra("NOTIFICATION_ACTION", "open");
             PendingIntent openPendingIntent =
                     PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getNotificationAction(), openPendingIntent);
-            mBuilder.addAction(ab.build());
-        }
-
-
-        if(alarm.isShowButtonOk()) {
-            Intent okIntent = new Intent(this.context, PluginNotificatonReceiver.class);
-            okIntent.setAction(alarm.getNotificationAction());
-            okIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            okIntent.putExtra("ID", alarm.getId());
-            okIntent.putExtra("NOTIFICATION_ACTION", "ok");
-            PendingIntent okPendingIntent =
-                    PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), okIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOkText(), okPendingIntent);
+            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOpenText(), openPendingIntent);
             mBuilder.addAction(ab.build());
         }
 
@@ -153,7 +155,7 @@ public class PluginNotificationManager {
     private static int getColor(PluginAlarmModel alarm) {
         int theColor = 0; // default, transparent
         final String passedColor = alarm.getNotificationColor(); // something like "#FFFF0000", or "red"
-        if (passedColor != null) {
+        if (passedColor != null || "".equals(passedColor.trim())) {
             try {
                 theColor = Color.parseColor(passedColor);
             } catch (IllegalArgumentException ignore) {
@@ -222,6 +224,7 @@ public class PluginNotificationManager {
     }
 
     public void cancel(PluginAlarmModel alarm){
-        this.notificationManager.cancel(alarm.getId());
+        String appName = getAppName(context);
+      this.notificationManager.cancel(appName, alarm.getId());
     }
 }

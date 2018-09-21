@@ -7,12 +7,15 @@
 		"id": "com.nativescript.alarmmanager",
 		"tns-android": {
 			"version": "3.4.3"
+		},
+		"tns-ios": {
+			"version": "3.4.1"
 		}
 	},
 	"dependencies": {
-		"nativescript-alarm-notification": "https://github.com/mobilemindtec/nativescript-alarm.git",
-		"nativescript-view-util": "https://github.com/mobilemindtec/nativescript-view-util.git",
+		"nativescript-alarm": "file:../",
 		"nativescript-theme-core": "~1.0.4",
+		"nativescript-view-util": "https://github.com/mobilemindtec/nativescript-view-util.git",
 		"tns-core-modules": "~3.4.0"
 	},
 	"devDependencies": {

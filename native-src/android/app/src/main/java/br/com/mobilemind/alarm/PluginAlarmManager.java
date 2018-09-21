@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -153,8 +154,16 @@ public class PluginAlarmManager {
     editor.commit();
   }
 
-  public String getAlarmsAsString(){
+  public List<PluginAlarmModel> getAlarms() throws JSONException {
     SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-    return pref.getString(PluginResources.NS_NOTIFICATIONS_KEY, "[]");
+    List<PluginAlarmModel> alarms = new LinkedList<>();
+    JSONArray items = new JSONArray(pref.getString(PluginResources.NS_NOTIFICATIONS_KEY, "[]"));
+    for(int i = 0; i < items.length(); i++){
+      JSONObject json = items.getJSONObject(i);
+      PluginAlarmModel alarm = new PluginAlarmModel();
+      alarm.fromJson(json);
+      alarms.add(alarm);
+    }
+    return  alarms;
   }
 }

@@ -11,6 +11,46 @@ function init(){
 
 exports.init = init
 
+function alarmToJson(alarm) {
+
+  var cal = java.util.Calendar.getInstance()
+  cal.setTime(alarm.getDate())
+
+  var date = new Date(
+    cal.get(java.util.Calendar.YEAR), 
+    cal.get(java.util.Calendar.MONTH), 
+    cal.get(java.util.Calendar.DATE), 
+    cal.get(java.util.Calendar.HOUR), 
+    cal.get(java.util.Calendar.SECOND), 
+    0
+  )  
+
+  return {
+    id: alarm.getId(),
+    datetime: date,
+    titel: alarm.getNotificationTitle(),
+    body: alarm.getNotificationBody(),
+    color: alarm.getNotificationColor(),
+    smallIcon: alarm.getAlertSmallIcon(),
+    largeIcon: alarm.getAlertLargeIcon(),
+    soundName: alarm.getSoundName(),
+    insistent: alarm.isInsistent(),
+    alarmAction: alarm.getAlarmAction(),
+    notificationAction: alarm.getNotificationAction(),
+    snoozeEnabled: alarm.isSnoozeEnabled(),
+    snoozeInterval: alarm.getSnoozeInterval(),
+    buttonOkText: alarm.getButtonOkText(),
+    buttonSnoozeText: alarm.getButtonSnoozeText(),
+    buttonOpenText: alarm.getButtonOpenText(),    
+    startActivityOnReceive: alarm.isStartActivityOnReceive(),
+    notifyOnReceive: alarm.isNotifyOnReceive(),
+    repeatTime: alarm.getRepeatTime(),
+    showButtonOpen: alarm.isShowButtonOpen(),
+    showButtonOk: alarm.isShowButtonOk(),
+    showButtonSnooze: alarm.isShowButtonSnooze()
+  }
+}
+
 // appName, title, text, icon id, extra (json object)
 exports.showNotification = function(args){
 
@@ -19,7 +59,7 @@ exports.showNotification = function(args){
   if(!notificationManager)
     init()
 
-  var alarm = new br.com.mobilemind.PluginAlarmModel()  
+  var alarm = new br.com.mobilemind.alarm.PluginAlarmModel()  
 
   if(args.bundle){
     for(var key in args.bundle){      
@@ -43,13 +83,13 @@ exports.showNotification = function(args){
   alarm.setSnoozeInterval(args.snoozeInterval || 15)
   alarm.setButtonOkText(args.buttonOkText || "OK")
   alarm.setButtonSnoozeText(args.buttonSnoozeText || "Sonece")
-  alarm.setButtonActionText(args.buttonActionText || "Abrir")
+  alarm.setButtonOpenText(args.buttonOpenText || "Abrir")
   
   alarm.setStartActivityOnReceive(args.startActivityOnReceive || false)
   alarm.setNotifyOnReceive(args.notifyOnReceive || false)
   alarm.setRepeatTime(args.repeatTime || 0)
 
-  alarm.setShowButtonAction(args.showButtonAction || false)
+  alarm.setShowButtonOpen(args.showButtonOpen || false)
   alarm.setShowButtonOk(args.showButtonOk || false)
   alarm.setShowButtonSnooze(args.showButtonSnooze || false)
 
@@ -64,7 +104,7 @@ exports.cancelNotification = function(args){
   if(!alarmManager)
     init()
 
-  var alarm = new br.com.mobilemind.PluginAlarmModel()  
+  var alarm = new br.com.mobilemind.alarm.PluginAlarmModel()  
   alarm.setId(args.id)  
 
   notificationManager.cancel(alarm)
@@ -91,10 +131,10 @@ exports.createAlarm = function(args){
 
 
   var cal = new java.util.Calendar.getInstance()
-  cal.set(args.datetime.year, args.datetime.month, args.datetime.day, args.datetime.hour, args.datetime.minute, 0)
+  cal.set(args.datetime.getFullYear(), args.datetime.getMonth(), args.datetime.getDate(), args.datetime.getHours(), args.datetime.getMinutes(), 0)
   var javaDate = cal.getTime()
 
-  var alarm = new br.com.mobilemind.PluginAlarmModel()  
+  var alarm = new br.com.mobilemind.alarm.PluginAlarmModel()  
 
   if(args.bundle){
     for(var key in args.bundle){      
@@ -119,13 +159,13 @@ exports.createAlarm = function(args){
   alarm.setSnoozeInterval(args.snoozeInterval || 15)
   alarm.setButtonOkText(args.buttonOkText || "OK")
   alarm.setButtonSnoozeText(args.buttonSnoozeText || "Sonece")
-  alarm.setButtonActionText(args.buttonActionText || "Abrir")
+  alarm.setButtonOpenText(args.buttonOpenText || "Abrir")
   
   alarm.setStartActivityOnReceive(args.startActivityOnReceive || false)
   alarm.setNotifyOnReceive(args.notifyOnReceive || false)
   alarm.setRepeatTime(args.repeatTime || 0)
 
-  alarm.setShowButtonAction(args.showButtonAction || false)
+  alarm.setShowButtonOpen(args.showButtonOpen || false)
   alarm.setShowButtonOk(args.showButtonOk || false)
   alarm.setShowButtonSnooze(args.showButtonSnooze || false)
 
@@ -133,14 +173,22 @@ exports.createAlarm = function(args){
 
 }
 
-exports.getAllAlarms = function () {
+exports.getAlarms = function () {
   
-  console.log("## call getAllAlarms")
+  console.log("## call getAlarms")
 
   if(!alarmManager)
     init()
 
-  return JSON.parse(alarmManager.getAlarmsAsString())
+  var alarms = alarmManager.getAlarms()
+  var items = []
+
+  for(var i = 0; i < alarms.size(); i++){
+    items.push(alarmToJson(alarms.get(i)))
+  }
+
+
+  return items
 }
 
 exports.cancelAlarm = function(args){
@@ -150,7 +198,7 @@ exports.cancelAlarm = function(args){
   if(!alarmManager)
     init()
 
-  var alarm = new br.com.mobilemind.PluginAlarmModel()  
+  var alarm = new br.com.mobilemind.alarm.PluginAlarmModel()  
   alarm.setId(args.id)  
   alarm.setAlarmAction(args.alarmAction || "")
 
@@ -175,7 +223,7 @@ exports.isAlarmSet = function() {
   if(!alarmManager)
     init()
 
-  var alarm = new br.com.mobilemind.PluginAlarmModel()  
+  var alarm = new br.com.mobilemind.alarm.PluginAlarmModel()  
   alarm.setId(args.id)  
 
   return notificationManager.isSet(alarm)

@@ -17,5 +17,10 @@ The following CSS rule changes the font size of all UI
 components that have the btn class name.
 */
 .btn {
-    font-size: 18;
+  font-size: 18;
+  color: #FFFFFF;
+  background-color: #3498db;
+  margin-top: 15;
+  height: 50;
+  width: 300;
 }

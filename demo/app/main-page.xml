@@ -1,9 +1,10 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="loaded">
   <StackLayout>
     
-    <Button text="set alarm" tap="onSetAlarm" />
-    <Button text="cancel alarm" tap="onCancelAlarm" />
-    <Button text="show notification" tap="onTapNotification" />
+    <Button text="set alarm" tap="onSetAlarm" class='btn'/>
+    <Button text="cancel alarm" tap="onCancelAlarm" class='btn'/>
+    <Button text="show notification" tap="onTapNotification" class='btn'/>
+    <Button text="get alarms" tap="getAlarms" class='btn'/>
     <Label text="{{ message }}" class="message" textWrap="true"/>
   </StackLayout>
 </Page>
