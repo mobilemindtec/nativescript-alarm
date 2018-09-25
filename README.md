@@ -1,6 +1,6 @@
 # Android
 
-### Add at AndroidManifest - Change YOUR_APP to app name or whatever you wont
+### Add at AndroidManifest
 
 ```
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>  
