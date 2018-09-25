@@ -104,8 +104,6 @@ if(application.ios){
 
 ### Create new alarm
 
-SHOW_NOTIFICATION - if true show notification else only open app
-bundle - bundle params they are passed to intent and can be retrive on app open
 
 ```
 
@@ -125,8 +123,8 @@ bundle - bundle params they are passed to intent and can be retrive on app open
     title: 'My Alarm title',
     body: 'My Alarm title',
     datetime: date, 
-    startActivityOnReceive: true, // only android
-    notifyOnReceive: true, // only android
+    startActivityOnReceive: true, // only android - if true starts app on alarm receive
+    notifyOnReceive: true, // only android - if true show notification when alarm receive
     color: "#000000", // only android
     soundName: "bell",
     snoozeEnabled: false, // enable snooze
