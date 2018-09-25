@@ -45,8 +45,9 @@
 
 If you want add a custom sound, put .mp3 file in:
 
-Android -> App_Resources/Android/raw/file.mp3
-IOS -> App_Resources/iOS/file.mp3
+Android -> `App_Resources/Android/raw/file.mp3`
+
+IOS -> `App_Resources/iOS/file.mp3`
 
 
 ### Startup alarm IOS
