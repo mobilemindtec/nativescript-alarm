@@ -33,23 +33,28 @@ public class PluginBootstrapAlarmReceiver extends BroadcastReceiver {
         try {
             JSONArray alarms = new JSONArray(this.pref.getString(PluginResources.NS_NOTIFICATIONS_KEY, "[]"));
 
+            boolean notificationShowed = false;
             for (int i = 0; i < alarms.length(); i++) {
 
                 PluginAlarmModel alarm = new PluginAlarmModel();
                 alarm.fromJson(alarms.getJSONObject(i));
+
+                if(!alarm.isEnabled()) {
+                    continue;
+                }
 
                 if (alarm.getDate().compareTo(today) > 0) {
                     alarmManager.createAlarm(alarm);
                     Log.d(TAG, "## create alarm ID " + alarm.getId());
                 } else {
 
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("ID", alarm.getId());
+                    if(!notificationShowed) {
+                        alarm.setAlarmBootstrap(true);
+                        notificationManager.show(alarm);
+                        notificationShowed = true;
+                    }
 
-                    //show(String action, String title, String text, int iconRes, Bundle bundle)
-                    notificationManager.show(alarm);
-
-                    // reemove alarm
+                    // remove alarm
                     PluginAlarmManager.deleteAlarm(alarm,  context);
                 }
 

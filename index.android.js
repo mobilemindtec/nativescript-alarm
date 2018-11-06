@@ -47,7 +47,9 @@ function alarmToJson(alarm) {
     repeatTime: alarm.getRepeatTime(),
     showButtonOpen: alarm.isShowButtonOpen(),
     showButtonOk: alarm.isShowButtonOk(),
-    showButtonSnooze: alarm.isShowButtonSnooze()
+    showButtonSnooze: alarm.isShowButtonSnooze(),
+    alarmBootstrapText: alarm.getAlarmBootstrapText(),
+    enabled: alarm.isEnabled()
   }
 }
 
@@ -84,7 +86,8 @@ exports.showNotification = function(args){
   alarm.setButtonOkText(args.buttonOkText || "OK")
   alarm.setButtonSnoozeText(args.buttonSnoozeText || "Sonece")
   alarm.setButtonOpenText(args.buttonOpenText || "Abrir")
-  
+  alarm.setAlarmBootstrapText(args.alarmBootstrapText || "")
+
   alarm.setStartActivityOnReceive(args.startActivityOnReceive || false)
   alarm.setNotifyOnReceive(args.notifyOnReceive || false)
   alarm.setRepeatTime(args.repeatTime || 0)
@@ -92,6 +95,7 @@ exports.showNotification = function(args){
   alarm.setShowButtonOpen(args.showButtonOpen || false)
   alarm.setShowButtonOk(args.showButtonOk || false)
   alarm.setShowButtonSnooze(args.showButtonSnooze || false)
+  alarm.setEnabled(true)
 
 
   notificationManager.show(alarm)
@@ -147,6 +151,7 @@ exports.createAlarm = function(args){
   alarm.setDate(javaDate)
   alarm.setNotificationTitle(args.title || "")
   alarm.setNotificationBody(args.body || "")
+  alarm.setAlarmBootstrapText(args.alarmBootstrapText || "")
   alarm.setNotificationColor(args.color || "")
   alarm.setAlertSmallIcon(args.smallIcon || "")
   alarm.setAlertLargeIcon(args.largeIcon || "")
@@ -168,7 +173,8 @@ exports.createAlarm = function(args){
   alarm.setShowButtonOpen(args.showButtonOpen || false)
   alarm.setShowButtonOk(args.showButtonOk || false)
   alarm.setShowButtonSnooze(args.showButtonSnooze || false)
-
+  alarm.setEnabled(true)
+  
   alarmManager.createAlarm(alarm)
 
 }

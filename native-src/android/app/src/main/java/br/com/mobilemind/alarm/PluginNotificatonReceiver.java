@@ -72,7 +72,8 @@ public class PluginNotificatonReceiver extends BroadcastReceiver{
                 Log.d(TAG, "### starting activity for package: " + context.getApplicationContext().getPackageName());
                 launchIntent.setPackage(null);
                 context.startActivity(launchIntent);
-                alarmManager.cancel(alarm);
+                alarm.setEnabled(false);
+                alarmManager.saveAlarm(alarm, context);
             } else if("snooze".equals(action)){
                 Log.d(TAG, "### snooze action");
                 Calendar calendar = Calendar.getInstance();
@@ -82,10 +83,12 @@ public class PluginNotificatonReceiver extends BroadcastReceiver{
                 alarmManager.createAlarm(alarm);
             }else if("ok".equals(action)){
                 Log.d(TAG, "### ok action");
-                alarmManager.cancel(alarm);
+                alarm.setEnabled(false);
+                alarmManager.saveAlarm(alarm, context);
             }else{
                 Log.d(TAG, "### action " + action + " not found");
             }
+
 
             notificationManager.cancel(alarm);
 

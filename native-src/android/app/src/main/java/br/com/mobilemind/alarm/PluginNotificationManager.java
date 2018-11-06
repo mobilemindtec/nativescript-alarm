@@ -48,6 +48,8 @@ public class PluginNotificationManager {
         PendingIntent contentIntent = PendingIntent.getActivity(context, alarm.getId(), notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
 
+        notificationIntent.putExtra("ID", alarm.getId());
+
         NotificationCompat.Builder mBuilder =
               new NotificationCompat.Builder(context)
                       .setSmallIcon(getSmallIcon(context, alarm))
@@ -60,74 +62,95 @@ public class PluginNotificationManager {
 
 
 
-        if(alarm.isShowButtonOk()) {
-            Intent okIntent = new Intent(this.context, PluginNotificatonReceiver.class);
-            okIntent.setAction(alarm.getNotificationAction());
-            okIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            okIntent.putExtra("ID", alarm.getId());
-            okIntent.putExtra("NOTIFICATION_ACTION", "ok");
-            PendingIntent okPendingIntent =
-                    PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), okIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOkText(), okPendingIntent);
-            mBuilder.addAction(ab.build());
+        if(alarm.isAlarmBootstrap()){
+            notificationIntent.putExtra("BOOTSTRAP", true);
+            if (alarm.isShowButtonOpen()) {
+                Intent openIntent = new Intent(this.context, PluginNotificatonReceiver.class);
+                openIntent.setAction(alarm.getNotificationAction());
+                openIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                openIntent.putExtra("ID", alarm.getId());
+                openIntent.putExtra("NOTIFICATION_ACTION", "open");
+                openIntent.putExtra("BOOTSTRAP", true);
+                PendingIntent openPendingIntent =
+                        PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOpenText(), openPendingIntent);
+                mBuilder.addAction(ab.build());
+            }
         }
 
-        if(alarm.isSnoozeEnabled() && alarm.isShowButtonSnooze()){
-            Intent snoozeIntent = new Intent(this.context, PluginNotificatonReceiver.class);
-            snoozeIntent.setAction(alarm.getNotificationAction());
-            snoozeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            snoozeIntent.putExtra("ID", alarm.getId());
-            snoozeIntent.putExtra("NOTIFICATION_ACTION", "snooze");
-            PendingIntent snoozePendingIntent =
-                    PendingIntent.getBroadcast(this.context, (int)System.currentTimeMillis(), snoozeIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonSnoozeText(), snoozePendingIntent);
-            mBuilder.addAction(ab.build());
+        if(!alarm.isAlarmBootstrap()) {
+            if (alarm.isShowButtonOk()) {
+                Intent okIntent = new Intent(this.context, PluginNotificatonReceiver.class);
+                okIntent.setAction(alarm.getNotificationAction());
+                okIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                okIntent.putExtra("ID", alarm.getId());
+                okIntent.putExtra("NOTIFICATION_ACTION", "ok");
+
+                PendingIntent okPendingIntent =
+                        PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), okIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOkText(), okPendingIntent);
+                mBuilder.addAction(ab.build());
+            }
+
+            if (alarm.isSnoozeEnabled() && alarm.isShowButtonSnooze()) {
+                Intent snoozeIntent = new Intent(this.context, PluginNotificatonReceiver.class);
+                snoozeIntent.setAction(alarm.getNotificationAction());
+                snoozeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                snoozeIntent.putExtra("ID", alarm.getId());
+                snoozeIntent.putExtra("NOTIFICATION_ACTION", "snooze");
+                PendingIntent snoozePendingIntent =
+                        PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), snoozeIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonSnoozeText(), snoozePendingIntent);
+                mBuilder.addAction(ab.build());
+            }
+
+
+            if (alarm.isShowButtonOpen()) {
+                Intent openIntent = new Intent(this.context, PluginNotificatonReceiver.class);
+                openIntent.setAction(alarm.getNotificationAction());
+                openIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                openIntent.putExtra("ID", alarm.getId());
+                openIntent.putExtra("NOTIFICATION_ACTION", "open");
+                PendingIntent openPendingIntent =
+                        PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOpenText(), openPendingIntent);
+                mBuilder.addAction(ab.build());
+            }
         }
 
 
-        if(alarm.isShowButtonOpen()) {
-            Intent openIntent = new Intent(this.context, PluginNotificatonReceiver.class);
-            openIntent.setAction(alarm.getNotificationAction());
-            openIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            openIntent.putExtra("ID", alarm.getId());
-            openIntent.putExtra("NOTIFICATION_ACTION", "open");
-            PendingIntent openPendingIntent =
-                    PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOpenText(), openPendingIntent);
-            mBuilder.addAction(ab.build());
-        }
-
-
-
-        String message = alarm.getNotificationBody();
-      if (message != null) {
-        if(message.length() > 30){
-          mBuilder.setContentText(message.substring(0, 30) + "..")
+        String message = alarm.isAlarmBootstrap() &&  alarm.getAlarmBootstrapText() != null && alarm.getAlarmBootstrapText().length() > 0 ? alarm.getAlarmBootstrapText() : alarm.getNotificationBody();
+        if (message != null) {
+            if(message.length() > 30){
+                mBuilder.setContentText(message.substring(0, 30) + "..")
                   .setStyle(new NotificationCompat.BigTextStyle()
                           .bigText(message));
-        }else{
-          mBuilder.setContentText(message);
+            }else{
+                mBuilder.setContentText(message);
+            }
+        } else {
+            mBuilder.setContentText("<missing message content>");
         }
-      } else {
-        mBuilder.setContentText("<missing message content>");
-      }
 
-
-      String soundName = alarm.getSoundName();
-      int defaults = Notification.DEFAULT_ALL;
-      if (soundName != null) {
-        Resources r = context.getResources();
-        int resourceId = r.getIdentifier(soundName, "raw", context.getPackageName());
-        Uri soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resourceId);
-        mBuilder.setSound(soundUri);
-        defaults &= ~Notification.DEFAULT_SOUND;
-        mBuilder.setDefaults(defaults);
-      }
+        if(!alarm.isAlarmBootstrap()) {
+            String soundName = alarm.getSoundName();
+            int defaults = Notification.DEFAULT_ALL;
+            if (soundName != null) {
+                Resources r = context.getResources();
+                int resourceId = r.getIdentifier(soundName, "raw", context.getPackageName());
+                Uri soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resourceId);
+                mBuilder.setSound(soundUri);
+                defaults &= ~Notification.DEFAULT_SOUND;
+                mBuilder.setDefaults(defaults);
+            }
+        }
 
       final Notification notification = mBuilder.build();
 
-      if(alarm.isInsistent())
+      if(alarm.isInsistent() && !alarm.isAlarmBootstrap())
         notification.flags = Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
+      else
+          notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
       final int largeIcon = getLargeIcon(context, alarm);
       if (largeIcon > -1) {

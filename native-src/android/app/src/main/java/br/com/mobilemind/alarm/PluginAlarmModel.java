@@ -40,6 +40,8 @@ public class PluginAlarmModel {
     private String notificationBody = "";
     private String notificationColor = "";
 
+    private String alarmBootstrapText = "";
+
     private Map<String, Object> bundle = new HashMap<>();
 
     // open actvity in alarm receiver
@@ -55,6 +57,19 @@ public class PluginAlarmModel {
     private boolean showButtonOpen;
     private boolean showButtonOk;
     private boolean showButtonSnooze;
+
+    private boolean alarmBootstrap;
+
+    private boolean enabled = true;
+
+
+    public boolean isAlarmBootstrap() {
+        return alarmBootstrap;
+    }
+
+    public void setAlarmBootstrap(boolean alarmBootstrap) {
+        this.alarmBootstrap = alarmBootstrap;
+    }
 
     public int getId() {
         return id;
@@ -240,6 +255,22 @@ public class PluginAlarmModel {
         this.showButtonSnooze = showButtonSnooze;
     }
 
+    public String getAlarmBootstrapText() {
+        return alarmBootstrapText;
+    }
+
+    public void setAlarmBootstrapText(String alarmBootstrapText) {
+        this.alarmBootstrapText = alarmBootstrapText;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public void addBundle(String key, Object value){
         this.bundle.put(key, value);
     }
@@ -270,6 +301,8 @@ public class PluginAlarmModel {
         json.put("showButtonOpen", this.showButtonOpen);
         json.put("showButtonOk", this.showButtonOk);
         json.put("showButtonSnooze", this.showButtonSnooze);
+        json.put("alarmBootstrapText", this.alarmBootstrapText);
+        json.put("enabled", this.enabled);
 
 
         JSONObject b = new JSONObject();
@@ -309,6 +342,9 @@ public class PluginAlarmModel {
         this.showButtonOpen = json.optBoolean("showButtonOpen", false);
         this.showButtonOk = json.optBoolean("showButtonOk", false);
         this.showButtonSnooze = json.optBoolean("showButtonSnooze", false);
+
+        this.alarmBootstrapText = json.optString("alarmBootstrapText", "");
+        this.enabled = json.optBoolean("enabled", false);
 
         JSONObject b = json.getJSONObject("bundle");
         if(b.length() > 0) {

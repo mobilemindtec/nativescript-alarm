@@ -122,7 +122,7 @@ public class PluginAlarmManager {
 
     for(int i = 0; i < items.length(); i++){
 
-        boolean isSame = items.getJSONObject(i).optInt("id", 0) != alarm.getId();
+        boolean isSame = items.getJSONObject(i).optInt("id", 0) == alarm.getId();
         JSONObject item = items.getJSONObject(i);
         if(!isSame){
             newItems.put(item);
@@ -142,9 +142,9 @@ public class PluginAlarmManager {
     JSONArray newItems = new JSONArray();
 
     for(int i = 0; i < items.length(); i++){
-      boolean isSame = items.getJSONObject(i).optInt("id", 0) != alarm.getId();
-      JSONObject item = items.getJSONObject(i);
+      boolean isSame = items.getJSONObject(i).optInt("id", 0) == alarm.getId();
       if(!isSame){
+        JSONObject item = items.getJSONObject(i);
         newItems.put(item);
       }
     }

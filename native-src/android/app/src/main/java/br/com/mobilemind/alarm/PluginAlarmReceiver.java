@@ -77,7 +77,8 @@ public class PluginAlarmReceiver extends BroadcastReceiver{
             }
 
             if(alarm.getRepeatTime() == 0){
-                alarmManager.cancel(alarm);
+                alarm.setEnabled(false);
+                alarmManager.saveAlarm(alarm, context);
             }
 
         }catch (Exception e){
