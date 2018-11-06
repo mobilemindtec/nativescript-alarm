@@ -45,10 +45,10 @@ public class PluginNotificationManager {
         String appName = getAppName(context);
 
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notificationIntent.putExtra("ID", alarm.getId());
+
         PendingIntent contentIntent = PendingIntent.getActivity(context, alarm.getId(), notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-
-        notificationIntent.putExtra("ID", alarm.getId());
 
         NotificationCompat.Builder mBuilder =
               new NotificationCompat.Builder(context)
@@ -71,6 +71,7 @@ public class PluginNotificationManager {
                 openIntent.putExtra("ID", alarm.getId());
                 openIntent.putExtra("NOTIFICATION_ACTION", "open");
                 openIntent.putExtra("BOOTSTRAP", true);
+                openIntent.setClass(this.context, PluginNotificatonReceiver.class);
                 PendingIntent openPendingIntent =
                         PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                 NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOpenText(), openPendingIntent);
@@ -85,6 +86,7 @@ public class PluginNotificationManager {
                 okIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 okIntent.putExtra("ID", alarm.getId());
                 okIntent.putExtra("NOTIFICATION_ACTION", "ok");
+                okIntent.setClass(this.context, PluginNotificatonReceiver.class);
 
                 PendingIntent okPendingIntent =
                         PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), okIntent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -98,6 +100,7 @@ public class PluginNotificationManager {
                 snoozeIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 snoozeIntent.putExtra("ID", alarm.getId());
                 snoozeIntent.putExtra("NOTIFICATION_ACTION", "snooze");
+                snoozeIntent.setClass(this.context, PluginNotificatonReceiver.class);
                 PendingIntent snoozePendingIntent =
                         PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), snoozeIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                 NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonSnoozeText(), snoozePendingIntent);
@@ -111,6 +114,7 @@ public class PluginNotificationManager {
                 openIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 openIntent.putExtra("ID", alarm.getId());
                 openIntent.putExtra("NOTIFICATION_ACTION", "open");
+                openIntent.setClass(this.context, PluginNotificatonReceiver.class);
                 PendingIntent openPendingIntent =
                         PendingIntent.getBroadcast(this.context, (int) System.currentTimeMillis(), openIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                 NotificationCompat.Action.Builder ab = new NotificationCompat.Action.Builder(0, alarm.getButtonOpenText(), openPendingIntent);
