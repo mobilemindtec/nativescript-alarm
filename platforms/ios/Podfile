@@ -1,8 +1,7 @@
 
 platform :ios, '10.0'
 
-pod 'NativeScriptAlarm', :path => '/Users/ricardo/sources/repositories/nativescript-modules/ios-libs/nativescript-alarm-ios-sources'
-// pod 'NativeScriptAlarm', :git => 'git@github.com:mobilemindtec/nativescript-alarm-ios-sources.git'
+pod 'NativeScriptAlarm', :git => 'git@github.com:mobilemindtec/nativescript-alarm-ios-sources.git'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
