@@ -25,7 +25,8 @@ function alarmToJson(alarm){
   return {
     id: alarm.id,
     datetime: date,
-    alertBody: alarm.alertBody,
+    body: alarm.alertBody,
+    title: alarm.alertTitle,
     soundName: alarm.soundName,
     enabled: alarm.enabled,
     snoozeEnabled: alarm.snoozeEnabled,
