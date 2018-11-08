@@ -49,7 +49,8 @@ function alarmToJson(alarm) {
     showButtonOk: alarm.isShowButtonOk(),
     showButtonSnooze: alarm.isShowButtonSnooze(),
     alarmBootstrapText: alarm.getAlarmBootstrapText(),
-    enabled: alarm.isEnabled()
+    enabled: alarm.isEnabled(),
+    object: alarm
   }
 }
 

@@ -36,7 +36,8 @@ function alarmToJson(alarm){
     buttonSnoozeText: alarm.buttonSnoozeText,
     showButtonOpen: alarm.showButtonOpen,
     showButtonOk: alarm.showButtonOk,
-    showButtonSnooze: alarm.showButtonSnooze
+    showButtonSnooze: alarm.showButtonSnooze,
+    object: alarm
   }
 }
 
