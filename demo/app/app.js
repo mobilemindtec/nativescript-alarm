@@ -8,6 +8,8 @@ require("./bundle-config");
 var application = require("application");
 var AlarmManager = require("nativescript-alarm")
 var utils = require("utils/utils")
+var dialogs = require('ui/dialogs')
+
 
 
 if(application.ios){
@@ -30,6 +32,13 @@ if(application.ios){
                 },
                 onNotificationClick: function(alarm){
 
+                    setTimeout(function(){                    
+                      dialogs.alert({
+                        title: alarm.title,
+                        message: "alarm " + alarm.body + ", id = " + alarm.id,
+                        okButtonText: "OK"
+                      })
+                    }, 2000)
                 },
                 onNotificationActionOk: function(alarm){
 

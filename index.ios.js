@@ -10,6 +10,7 @@ function init(){
 
 function alarmToJson(alarm){
 
+  var dict = AlarmSupport.alarmToDict(alarm)
   var component = AlarmSupport.getDateComponents(alarm)
 
   var date = new Date(
@@ -22,23 +23,24 @@ function alarmToJson(alarm){
     0
   )
 
-  return {
-    id: alarm.id,
-    datetime: date,
-    body: alarm.alertBody,
-    title: alarm.alertTitle,
-    soundName: alarm.soundName,
-    enabled: alarm.enabled,
-    snoozeEnabled: alarm.snoozeEnabled,
-    snoozeInterval: alarm.snoozeInterval,
-    buttonOkText: alarm.buttonOkText,
-    buttonOpenText: alarm.buttonOpenText,
-    buttonSnoozeText: alarm.buttonSnoozeText,
-    showButtonOpen: alarm.showButtonOpen,
-    showButtonOk: alarm.showButtonOk,
-    showButtonSnooze: alarm.showButtonSnooze,
-    object: alarm
+  var keys = utils.ios.collections.nsArrayToJSArray(dict.allKeys)
+  var result = {datetime: date, object: alarm}
+
+  for(var i in keys) {
+    var key = keys[i]
+    var value = dict.objectForKey(key)
+    
+    result[key] = value
+
+    if(key == "alertBody")
+      result["body"] = value
+
+    if(key == "alertTitle")
+      result["title"] = value
+
   }
+
+  return result
 }
 
 exports.setUpNotifications = function(params) {
