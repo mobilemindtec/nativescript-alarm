@@ -103,6 +103,40 @@ function createAlarm(){
   
   AlarmManager.createAlarm(args)
 
+  date = new Date(new Date().getTime() + (60 * 2000))
+
+  var args = {
+    alarmAction: action,   
+    id: 3,   
+    title: 'My Alarm title 3',
+    body: 'My Alarm title 3',
+    datetime: date,
+    startActivityOnReceive: true,
+    notifyOnReceive: true,
+    color: "#000000",
+    soundName: "bell",
+    insistent: true
+  }    
+  
+  AlarmManager.createAlarm(args)  
+
+  date = new Date(new Date().getTime() + (60 * 3000))
+
+  var args = {
+    alarmAction: action,   
+    id: 4,   
+    title: 'My Alarm title 4',
+    body: 'My Alarm title 4',
+    datetime: date,
+    startActivityOnReceive: true,
+    notifyOnReceive: true,
+    color: "#000000",
+    soundName: "bell",
+    insistent: true
+  }    
+  
+  AlarmManager.createAlarm(args)   
+
   viewModel.set('message', "alarm at: " + args.datetime.getHours() + ":" + args.datetime.getMinutes())
 
 }

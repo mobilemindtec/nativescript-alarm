@@ -23,7 +23,7 @@ function alarmToJson(alarm){
     0
   )
 
-  var keys = utils.ios.collections.nsArrayToJSArray(dict.allKeys)
+  var keys = utils.iOSNativeHelper.collections.nsArrayToJSArray(dict.allKeys)
   var result = {datetime: date, object: alarm}
 
   for(var i in keys) {
