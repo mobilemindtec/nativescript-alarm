@@ -1,5 +1,5 @@
 
-import { iOSNativeHelper } from "@nativescript/core"
+var iOSNativeHelper = require("@nativescript/core").iOSNativeHelper
 
 var scheduler, alarmSupport
 
