@@ -1,12 +1,12 @@
-var application = require("application");
-var frameModule = require("ui/frame");
+import { Application } from "@nativescript/core"
 
 var notificationManager
 var alarmManager
 
 function init(){
-  notificationManager = new br.com.mobilemind.alarm.PluginNotificationManager(application.android.context)
-  alarmManager = new br.com.mobilemind.alarm.PluginAlarmManager(application.android.context)
+  var ctx = Application.android.foregroundActivity || Application.android.startActivity
+  notificationManager = new br.com.mobilemind.alarm.PluginNotificationManager(ctx)
+  alarmManager = new br.com.mobilemind.alarm.PluginAlarmManager(ctx)
 }
 
 exports.init = init

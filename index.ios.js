@@ -1,5 +1,5 @@
 
-var utils = require("utils/utils")
+import { iOSNativeHelper } from "@nativescript/core"
 
 var scheduler, alarmSupport
 
@@ -23,7 +23,7 @@ function alarmToJson(alarm){
     0
   )
 
-  var keys = utils.iOSNativeHelper.collections.nsArrayToJSArray(dict.allKeys)
+  var keys = iOSNativeHelper.collections.nsArrayToJSArray(dict.allKeys)
   var result = {datetime: date, object: alarm}
 
   for(var i in keys) {
